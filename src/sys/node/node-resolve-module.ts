@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { normalizePath } from '../../compiler/util';
 
 
 export class NodeResolveModule {
@@ -32,7 +33,7 @@ export class NodeResolveModule {
     let packageJsonFilePath: string;
 
     while (dir !== root) {
-      dir = path.dirname(dir);
+      dir = normalizePath(path.dirname(dir));
       packageJsonFilePath = path.join(dir, 'package.json');
 
       if (!hasAccess(packageJsonFilePath)) {
@@ -56,7 +57,7 @@ export class NodeResolveModule {
     let typesPackageJsonFilePath: string;
 
     while (dir !== root) {
-      dir = path.dirname(dir);
+      dir = normalizePath(path.dirname(dir));
       typesPackageJsonFilePath = path.join(dir, 'node_modules', moduleSplt[0], moduleSplt[1], 'package.json');
 
       if (!hasAccess(typesPackageJsonFilePath)) {
